@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我是子窗体</title>
+</head>
+
+<body>
+    <h1>我是子窗体</h1>
+    <button id="popbtn">传递消息</button>
+</body>
+<script>
+    let popbtn = document.querySelector('#popbtn');
+    let a ='传递的消息'
+    popbtn.onclick = function (e) {
+        window.opener.postMessage(a, '*');
+    }
+</script>
+
+</html>

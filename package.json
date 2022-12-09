@@ -1,0 +1,47 @@
+{
+  "name": "ikun",
+  "version": "1.0.0",
+  "author": "gsl",
+  "license": "ISC",
+  "description": "我是个ikun",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder  --dir",
+    "dist": "electron-builder",
+    "build-icon": "electron-icon-builder --input=./icons/icon.png --output=build --flatten",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "build": {
+    "productName": "ikun专属",
+    "appId": "gsl test",
+    "copyright": "Copyright © 2022",
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "msi",
+        "nsis"
+      ],
+      "icon": "build/icons/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "language": "2052",
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "devDependencies": {
+    "@electron/remote": "^2.0.8",
+    "electron": "^22.0.0",
+    "electron-builder": "^23.6.0",
+    "electron-icon-builder": "^2.0.1"
+  },
+  "dependencies": {
+    "@electron/remote": "^2.0.8",
+    "nrm": "^1.2.5"
+  }
+}

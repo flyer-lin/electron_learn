@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dialog</title>
+</head>
+
+<body>
+    <h1>断网</h1>
+    <h2>激活码：<span id="code">66666</span></h2><button id="btn">复制激活码</button>
+    <button id="openBtn">打开图片</button>
+    <button id="saveBtn">保存图片</button>
+    <button id="messageBtn">弹框</button>
+    <button id="tableBtn">桌面弹框</button>
+    <img id="images" style="width:100%;" />
+</body>
+<script>
+    const remote = require("@electron/remote");
+    const fs = require('fs')
+    const dialog = remote.dialog
+    const clipboard = remote.clipboard
+    let openBtn = document.querySelector('#openBtn')
+    let saveBtn = document.querySelector('#saveBtn')
+    let images = document.querySelector('#images')
+    let messageBtn = document.querySelector('#messageBtn')
+    let tableBtn = document.querySelector('#tableBtn')
+    let btn = document.querySelector('#btn')
+    let code = document.querySelector('#code')
+    let tableOption = {
+        title:'上班了，qwq~~',
+        body:'摸鱼，666~~'
+    }
+    openBtn.onclick = () => {
+        // showOpenDialogSync 同步的
+        dialog.showOpenDialog({
+            title: '请选择妹子照片',
+            defaultPath: 'portrait_new.png',
+            //过滤器后缀
+            filters: [{ name: '图片', extensions: ['jpg', 'png'] }],
+            buttonLabel: '打开小姐姐'
+        }).then((result) => {
+            //setAttribute 设置属性
+            images.setAttribute('src', result.filePaths[0])
+        }).catch((err) => {
+            alert(err)
+        });
+    }
+    saveBtn.onclick = () => {
+        dialog.showSaveDialog({
+            title: '保存文件'
+        }).then(result => {
+            fs.writeFileSync(result.filePath, 'gsl')
+        }).catch(err => {
+            console.log("🚀 ~ file: dialog.html:43 ~ err", err)
+        })
+    }
+    messageBtn.onclick = () => {
+        dialog.showMessageBox({
+            type: 'warning',
+            title: '去么？',
+            message: '玩去',
+            buttons: ['去', '不去']
+        }).then((res) => {
+            console.log(res);
+        })
+    }
+    tableBtn.onclick = () => {
+        new window.Notification(tableOption.title,tableOption)
+    }
+    btn.onclick = () => {
+        clipboard.writeText(code.innerHTML)
+        new window.Notification(tableOption.title,tableOption)
+    }
+    //online offline
+    window.addEventListener('online', () => {
+        alert('联网')
+    })
+    window.addEventListener('offline', () => {
+        alert('断网')
+    })
+
+</script>
+
+</html>
